@@ -1,16 +1,4 @@
-export interface UserQuery {
-  pageNum: number
-  pageSize: number
-  userName?: string
-}
-
-export interface UserItem {
-  userId: number
-  userName: string
-  phonenumber: string
-  roleName: string
-  status: '0' | '1'
-}
+import type { PageResult, UserItem, UserQuery } from '@/types'
 
 const DEMO_USERS: UserItem[] = [
   { userId: 1, userName: 'admin', phonenumber: '13800000001', roleName: 'Administrator', status: '0' },
@@ -18,7 +6,7 @@ const DEMO_USERS: UserItem[] = [
   { userId: 3, userName: 'readonly', phonenumber: '13800000003', roleName: 'Viewer', status: '1' },
 ]
 
-export async function listUser(query: UserQuery) {
+export async function listUser(query: UserQuery): Promise<PageResult<UserItem>> {
   const keyword = query.userName?.trim().toLowerCase() || ''
   const filtered = keyword
     ? DEMO_USERS.filter((item) =>

@@ -41,14 +41,15 @@ import { useI18n } from 'vue-i18n'
 import Pagination from '@/components/Pagination/index.vue'
 import RightToolbar from '@/components/RightToolbar/index.vue'
 import SearchToolbar from '@/components/SearchToolbar/index.vue'
-import { listUser, type UserItem } from '@/api/system/user'
+import { listUser } from '@/api/system/user'
 import { useAppStore } from '@/store/modules/app'
+import type { UserItem, UserQuery } from '@/types'
 
 const { t } = useI18n()
 const appStore = useAppStore()
 const showSearch = computed(() => appStore.showSearch)
 
-const queryParams = reactive({
+const queryParams = reactive<UserQuery>({
   pageNum: 1,
   pageSize: 2,
   userName: '',

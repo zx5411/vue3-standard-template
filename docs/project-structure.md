@@ -6,10 +6,8 @@
 
 ```text
 vue3-standard-template/
-├─ dist/
 ├─ docs/
 │  └─ project-structure.md
-├─ node_modules/
 ├─ public/
 │  └─ logo.svg
 ├─ src/
@@ -31,6 +29,12 @@ vue3-standard-template/
 │  │  │  └─ index.vue
 │  │  └─ SearchToolbar/
 │  │     └─ index.vue
+│  ├─ composables/
+│  │  ├─ index.ts
+│  │  ├─ README.md
+│  │  ├─ usePagination.ts
+│  │  ├─ useTableQuery.ts
+│  │  └─ useToggle.ts
 │  ├─ constants/
 │  │  ├─ app.ts
 │  │  ├─ i18n.ts
@@ -58,6 +62,12 @@ vue3-standard-template/
 │  │  │  ├─ permission.ts
 │  │  │  └─ user.ts
 │  │  └─ index.ts
+│  ├─ types/
+│  │  ├─ api.ts
+│  │  ├─ common.ts
+│  │  ├─ index.ts
+│  │  ├─ README.md
+│  │  └─ user.ts
 │  ├─ utils/
 │  │  ├─ auth.ts
 │  │  └─ date.ts
@@ -86,23 +96,11 @@ vue3-standard-template/
 
 ## 根目录说明
 
-### `dist/`
-
-- 生产构建输出目录。
-- 由 `npm run build` 生成，通常不手动修改。
-- 用于部署静态站点或交付打包结果。
-
 ### `docs/`
 
 - 项目文档目录。
 - 适合存放目录说明、开发规范、部署说明、接口约定等文档。
 - 当前 `project-structure.md` 就放在这里。
-
-### `node_modules/`
-
-- 项目依赖安装目录。
-- 由包管理器自动维护，不纳入业务代码管理。
-- 出现异常时通常通过重新安装依赖修复，不直接编辑内部文件。
 
 ### `public/`
 
@@ -197,6 +195,13 @@ vue3-standard-template/
 - 放跨页面复用的组件，优先沉淀真正可复用的能力。
 - 如果组件只服务某一个页面，建议后续下沉到对应业务模块目录，避免这里过度膨胀。
 
+### `src/composables/`
+
+- Composition API 组合式逻辑目录。
+- 用于存放可复用的响应式状态与行为封装，例如分页、列表查询、请求状态、权限判断等。
+- 这里的内容通常以 `useXxx.ts` 命名，职责介于页面组件与通用工具函数之间。
+- 当前提供 `useToggle.ts`、`usePagination.ts`、`useTableQuery.ts` 作为 demo，并通过 `index.ts` 统一导出。
+
 ### `src/components/Pagination/`
 
 - 分页组件目录。
@@ -260,6 +265,13 @@ vue3-standard-template/
 - 每个文件聚焦一个状态领域，例如应用状态、用户状态、权限状态。
 - 对应测试也可以就近放在这里。
 
+### `src/types/`
+
+- 共享类型目录。
+- 用于存放跨模块复用的 TypeScript 类型定义，例如接口类型、表单类型、分页类型、响应体类型等。
+- 当类型既不适合内联在单文件中，也不属于某个独立业务模块时，统一收敛到这里。
+- 当前提供 `api.ts`、`common.ts`、`user.ts` 作为示例，并通过 `index.ts` 统一导出。
+
 ### `src/utils/`
 
 - 通用工具函数目录。
@@ -307,6 +319,9 @@ vue3-standard-template/
 - 页面放在 `src/views/<业务域>/<页面>/index.vue`，简单页面可直接放在 `src/views/` 下。
 - 接口按业务域放在 `src/api/<domain>/` 下，公共请求实例集中在 `src/api/request.ts`。
 - 通用组件放在 `src/components/<ComponentName>/` 下，组件测试尽量与组件同目录维护。
+- 组合式逻辑放在 `src/composables/` 下，统一使用 `useXxx.ts` 命名，避免把响应式复用逻辑堆进页面文件。
 - 全局共享状态放在 `src/store/modules/` 下，避免把页面私有状态提升到全局。
+- 跨模块复用的 TypeScript 类型放在 `src/types/` 下，避免类型散落在页面、接口和状态文件中。
+- `src/types/index.ts` 作为共享类型出口，业务侧优先从统一入口导入。
 - 全局样式与样式变量放在 `src/assets/styles/` 下，避免在页面中重复定义基础设计 token。
 - 目录文档发生变化时，应同步更新本文件，确保文档与实际结构一致。
