@@ -15,7 +15,7 @@ See [docs/project-structure.md](./docs/project-structure.md).
 
 Current structure highlights:
 
-- `src/views` holds pages directly, for example `views/system/user/index.vue`
+- `src/views` holds pages directly, for example `views/pms/product/index.vue`
 - `src/components` uses folder-style shared components such as `Pagination/index.vue`
 - `src/constants` stores shared application constants
 - `src/store/modules` holds Pinia modules
@@ -28,9 +28,10 @@ Current structure highlights:
 - `src/components/SearchToolbar/index.vue`
 - `src/components/RightToolbar/index.vue`
 - `src/constants/index.ts`
-- `src/views/system/user/index.vue`
+- `src/views/pms/product/index.vue`
 - `src/views/index.vue`
-- `src/api/system/user.ts`
+- `src/api/pms/product.ts`
+- `src/api/dashboard/index.ts`
 - `src/router/guards.ts`
 - `src/i18n/index.ts`
 

@@ -11,9 +11,8 @@ describe('permission store', () => {
     const routes = await permissionStore.generateRoutes(['editor'])
     const routePaths = routes.map((route) => route.path)
 
-    expect(routePaths).toContain('/index')
-    expect(routePaths).not.toContain('/system/user')
-    expect(asyncRoutes.some((route) => route.path === '/system/user')).toBe(true)
+    expect(routePaths).toEqual([])
+    expect(asyncRoutes.some((route) => route.path === '/pms')).toBe(true)
   })
 
   it('returns all async routes for admin users', async () => {
@@ -22,6 +21,6 @@ describe('permission store', () => {
 
     const routes = await permissionStore.generateRoutes(['admin'])
 
-    expect(routes.map((route) => route.path)).toContain('/system/user')
+    expect(routes.map((route) => route.path)).toContain('/pms')
   })
 })
